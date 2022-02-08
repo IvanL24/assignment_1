@@ -7,6 +7,9 @@ package shapesDomain;
  * @author ivanl
  *
  */
-public class SquarePrism extends Prism{
+
+ // test comment
+ 
+public class SquarePrism extends Prism {
 
 }
