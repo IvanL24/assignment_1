@@ -5,7 +5,7 @@ import shapesDomain.*;
 
 public class AppDriver {
 
-	public static void main(String[] args) {
+	public static void TestCylinder() {
 		
 		Shape shape;
 		//shape = new Rectangle("Blue", 10, 20);
@@ -30,9 +30,23 @@ public class AppDriver {
 //		
 		System.out.println("Volume: " + cylinderVolume);
 		System.out.println("Area: " + cylinderArea);
-	
 		
-
+	}
+	
+	public static void TestEquilatrialBase() {
+		
+		TriangularPrism tPrism = new TriangularPrism(5.0, 4.3);
+		System.out.println("Volume: " + tPrism.area());
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		System.out.println("Main method executing tests");
+		
+		TestCylinder();
+		TestEquilatrialBase();
+	
 	}
 
 }
