@@ -40,12 +40,26 @@ public class AppDriver {
 		
 	}
 	
+	public static void TestImporter() {
+		
+		Importer importer = new Importer("./res/polyfor1.txt");
+		try {
+			importer.ImportShapes();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public static void main(String[] args) {
 		
 		System.out.println("Main method executing tests");
 		
-		TestCylinder();
-		TestEquilatrialBase();
+		TestImporter();
+		
+//		TestCylinder();
+//		TestEquilatrialBase();
 	
 	}
 

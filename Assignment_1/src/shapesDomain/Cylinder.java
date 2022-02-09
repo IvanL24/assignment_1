@@ -16,23 +16,13 @@ public class Cylinder extends Shape {
 	 {
 	  radius=r;
 	  height=h;
+	  this.Calculate();
 	 }
-
-	@Override
-	public double area() {
-		
-		double area =2 * pi * radius * height + 2 * pi* radius *radius;
-		
-		return area;
-	}
-
-	@Override
-	public double volume() {
-		
-		double volume = pi * radius * radius * height;
-		
-		return volume;
-	}
-
+	 
+	 protected void Calculate() {
+		 double area =2 * pi * radius * height + 2 * pi* radius *radius;
+		 double volume = pi * radius * radius * height;
+		 this.setValues(area, volume, this.height);
+	 }
 
 }

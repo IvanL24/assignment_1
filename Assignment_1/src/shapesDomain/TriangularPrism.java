@@ -1,12 +1,9 @@
 package shapesDomain;
 
-public class TriangularPrism {
+public class TriangularPrism extends Prism {
 
 	private double height = 0.0;
 	private double edgeLength = 0.0;
-	
-	private double area = 0.0;
-	private double volume = 0.0;
 	
 	public TriangularPrism(double height, double edgeLength) {
 		
@@ -16,20 +13,10 @@ public class TriangularPrism {
 		this.Calculate();
 	}
 	
-	private void Calculate() {
+	protected void Calculate() {
 		double A = (5 * (Math.pow(this.edgeLength, 2) * (Math.sqrt(3))))/4;
 		double V = A * this.height;
-		
-		this.area = A;
-		this.volume = V;
-	}
-	
-	public double area() {
-		return this.area;
-	}
-	
-	public double volume() {
-		return this.volume;
+		this.setValues(A, V, this.height);
 	}
 	
 }
