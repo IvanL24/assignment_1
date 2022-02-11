@@ -3,10 +3,8 @@
  */
 package shapesDomain;
 
-/**
- * @author ivanl
- *
- */
+
+
 public class Cone extends Shape{
 	
 	private double radius;

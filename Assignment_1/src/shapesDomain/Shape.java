@@ -4,48 +4,54 @@
 package shapesDomain;
 
 
-/**
- * @author ivanl
- *
- */
 
 public abstract class Shape implements Comparable<Shape>  {
 
 	public final double pi = 3.14f;
 
-	// Internal variables for abstract class
 	private double compareType;
 	private double height;
 	
+	// method to contain the calculations for area
 	public abstract double getarea();
 	
+	// method to contain the calculations for volume
 	public abstract double getvolume();
 	
 
-	// Public methods defined here to remove code redundancy on subclasses.
+	// new shape object with specified values
 	public Shape(double height, char compareType) {
 		super();
 		this.height = height;
 		this.compareType = compareType;
 	}
 
-	//getters
+	//method to return height
 	public double getheight() {
 		return height;
 	}
 
+	// method to return type
 	public double getCompareType() {
 		return compareType;
 	}
 	
-	// setters
+	// method to set the height
 	public double setheight(double height) {
 		return this.height;
 	}
+	
+	//method use to set the type
 	public double setCompareType(char compareType) {
-		return this.height;
+		return this.compareType;
 	}
 	
+	// method use to return the name of the shape
+	public abstract Object getShapeName();
+	
+	/**
+	 * base class to compare the height, volume and area
+	 */
 	@Override
 	public int compareTo(Shape o) {
 		if(o.getCompareType() == 'h') {
@@ -64,7 +70,6 @@ public abstract class Shape implements Comparable<Shape>  {
 			return 0;
 		}
 	}
-	
-	public abstract Object getShapeName();
+
 	
 }

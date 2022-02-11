@@ -7,10 +7,8 @@ import java.util.*;
 
 import shapesDomain.Shape;
 
-/**
- * @author ivanl
- *
- */
+
+
 public class Sort {
 
 	private ArrayList<Shape> shapes;
@@ -19,6 +17,8 @@ public class Sort {
 	private ComparatorVolume volume;
 	private char compareType;
 	private char sortType;
+	
+	// will be used for calculating time
 	private double startTime;
 	private double endTime;
 
@@ -35,6 +35,7 @@ public class Sort {
 	}
 	
 	
+	//display user inputs
 	private void userInput (char c, char s) {
 		String compareType = "";
 		String sortingType = "";
@@ -68,6 +69,10 @@ public class Sort {
 			sortingType = "Merge sort";
 			break;
 		}
+		
+		System.out.println("Compare Type: " + compareType);
+		System.out.println("Sort Type: " + sortingType);
+		System.out.printf("%8s   %-20s%12s%25s%25s%n", "NO.", "SHAPE", "HEIGHT", "BASE AREA", "VOLUME");
 
 	}
 	
@@ -84,6 +89,7 @@ public class Sort {
 		printSortedArray(shapelist);
 	}
 	
+	//method to display the sorted arraylist
 	private void printSortedArray(ArrayList<Shape> shapelist) {
 		System.out.printf("%7d   %-20s%,12.2f%,25.2f%,25.2f%n",1,shapelist.get(0).getShapeName(),shapelist.get(0).getheight(),shapelist.get(0).getarea(),shapelist.get(0).getvolume());
 		for(int i=1; i<shapelist.size(); i++) {
@@ -134,34 +140,38 @@ public class Sort {
 	}
 	
 	
-	// getter methods
+		// method to return compare type
 		public char getCompareType() {
 			return compareType;
 			
 		}
-
+		
+		//method to return type of sorting
 		public char getSortType() {
 			return sortType;
 			
 		}
 
+		// method to get shapes
 		public ArrayList<Shape> getShapes() {
 			return shapes;
 			
 		}
 		
 		
-		//setter methods
+		//method to set compare type
 		public void setCompareType(char compareType) {
 			this.compareType = compareType;
 			
 		}
 
+		// method to set type of sorting
 		public void setSortType(char sortType) {
 			this.sortType = sortType;
 			
 		}
 
+		// method to set arraylist
 		 void setShapes(ArrayList<Shape> shapes) {
 			this.shapes = shapes;
 			

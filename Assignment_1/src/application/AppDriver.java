@@ -14,13 +14,19 @@ public class AppDriver {
 	
 public static void main(String[] args) throws FileNotFoundException{
 		
-		
-		
-//		System.out.println("Main method executing tests");
-//		
-//		TestImporter(filename, compareType);
-		
-		
+	//arg1: -f + file name = used to choose which file to open
+	//-t: options to choose how to compare 
+		// v = compare via volume
+		// h = compare via height
+		// a = compare via area
+	//-s: options to choose how to sort
+		// s = selection sort
+		// b = bubble sort
+		// i = insertion sort
+		// q = quick sort
+		// m = merge sort
+		// z = your choice of sorting
+	
 		try {
 			String arg1 = args[0];
 			String arg2 = args[1];
@@ -88,52 +94,29 @@ public static void main(String[] args) throws FileNotFoundException{
 	
 	}
 
-//	public static void TestCylinder() {
-//		
-//		Shape shape;
-//		shape = new Cone(4, 6, 8);		
-//		shape = new Cylinder(4, 6);
-//		
-//		Cylinder cylinder = (Cylinder) shape;
-//		
-//		double cylinderArea = cylinder.area();
-//		double cylinderVolume = cylinder.volume();
-//		
-//	
-//		System.out.println("Volume: " + cylinderVolume);
-//		System.out.println("Area: " + cylinderArea);
-//		
-//	}
-	
-//	public static void TestEquilatrialBase() {
-//		
-//		TriangularPrism tPrism = new TriangularPrism(5.0, 4.3);
-//		System.out.println("Volume: " + tPrism.area());
-//		
-//	}
+
+	/**
+	 * Get the content of the file into the arraylist
+	 * @param filename: name of target file
+	 * @param compareType: compare type (i.e., compare by height)
+	 */
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static ArrayList<Shape> TestImporter(String filename, char compareType){
-		
-		
-//		Importer importer = new Importer("./res/polyfor1.txt");
-//		try {
-//			importer.ImportShapes();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
+
+		// read file based on the filename given during input
 		try {
-		// ask system which file to handle 
-//			"-fpolyfor1.txt"
-//			String myFilename = filename.replace("-f", "");
-//			System.out.println(filename);
-			File file = new File ("res/polyfor1.txt");
+
+			File file = new File ("res/" + filename);
 			Scanner scan = new Scanner(file);
+			
+			// shape count in the text file (the very first number)
 			String shapeCount = scan.next();
 			
+			// convert shapeCount to int with parseInt
 			shapelist = new ArrayList<Shape>(Integer.parseInt(shapeCount));
+			
+			//indicator if file was accessed or not
 			System.out.println("Reading...");
 			
 			while(scan.hasNext()) {
@@ -141,7 +124,11 @@ public static void main(String[] args) throws FileNotFoundException{
 					String shapeType = scan.next();
 					double height = Double.parseDouble(scan.next());
 					double length_radius = Double.parseDouble(scan.next());
+					
+					// Get Classpath to access the class for each shape
 					String className = "shapesDomain." + shapeType;
+					
+					// get the parameter type after reading the input from txt file
 					Class cls = Class.forName(className);
 					Class paramTypes[] = new Class[3];
 						paramTypes[0] = Double.TYPE;
@@ -149,6 +136,7 @@ public static void main(String[] args) throws FileNotFoundException{
 						paramTypes[2] = Character.TYPE;
 					Constructor classConstructor = cls.getConstructor(paramTypes);
 					
+					// get the value for height, length/radius, and compare type which is to be pass to the main method
 					Object argList[] = new Object[3];
 					argList[0] =  (double) height;
 					argList[1] = (double)length_radius;
@@ -156,7 +144,6 @@ public static void main(String[] args) throws FileNotFoundException{
 					
 					Object obj = classConstructor.newInstance(argList);
 					shapelist.add((Shape)obj);
-				
 			}
 			
 			scan.close();
@@ -181,13 +168,18 @@ public static void main(String[] args) throws FileNotFoundException{
 		e.printStackTrace();
 	}
 
-	return shapelist;
-
-//		
+	return shapelist;	
+	
 		
 	}
 	
 	
+	/**
+	 * method to sort array
+	 * @param add shape arraylist to sort
+	 * @param compareType: compare type (i.e., compare by height)
+	 * @return sortType: sorting type (insertion, bubble, quick sort )
+	 */
 	
 	private static void arraySort(ArrayList<Shape> shapes, char compareType, char sortType) {
 		System.out.println(shapes);

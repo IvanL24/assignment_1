@@ -3,10 +3,8 @@
  */
 package shapesDomain;
 
-/**
- * @author ivanl
- *
- */
+
+
 public class Pyramid extends Shape{
 	
 	private double edgeLength;
