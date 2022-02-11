@@ -9,20 +9,40 @@ package shapesDomain;
  */
 public class Cylinder extends Shape {
 	
-	int radius; 
-	int height;
+	private double radius; 
 	
-	 public Cylinder(int r,int h)
-	 {
-	  radius=r;
-	  height=h;
-	  this.Calculate();
+	 public Cylinder(double height, double radius, char compareType){
+		 super(height, compareType);
+	  this.radius = radius;
 	 }
 	 
-	 protected void Calculate() {
-		 double area =2 * pi * radius * height + 2 * pi* radius *radius;
-		 double volume = pi * radius * radius * height;
-		 this.setValues(area, volume, this.height);
+	public double getRadius() {
+		return radius;
+	}
+	
+	public void setRadius(double radius) {
+		this.radius = radius;
+	}
+	 
+	@Override
+	 public double getvolume() {
+		 return  pi * radius * radius * getheight();
 	 }
+	 
+	 @Override
+	 public double getarea() {
+		 return 2 * pi * radius * getheight() + 2 * pi* radius *radius;
+	 }
+	 
+	 @Override
+	 public String toString() {
+			return "Cylinder [radius=" + radius + ", getheight()=" + getheight() + "]";
+	 }
+	 
+	 @Override
+	 public String getShapeName() {
+		 return "Cylinder";
+	 }
+
 
 }

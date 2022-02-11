@@ -18,13 +18,11 @@ public class Pyramid extends Shape{
 		
 	}
 
-	@Override
 	public double getEdgeLength() {
 		return edgeLength;
 	}
 	
-	@Override
-	public double setEdgeLength(double edgeLength) {
+	public void setEdgeLength(double edgeLength) {
 		this.edgeLength = edgeLength;
 	}
 

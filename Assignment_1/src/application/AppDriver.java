@@ -131,23 +131,17 @@ public static void main(String[] args) throws FileNotFoundException{
 //			System.out.println(filename);
 			File file = new File ("res/polyfor1.txt");
 			Scanner scan = new Scanner(file);
-//			String shapeCount = scan.nextLine();
+			String shapeCount = scan.next();
 			
-			shapelist = new ArrayList<Shape>();
+			shapelist = new ArrayList<Shape>(Integer.parseInt(shapeCount));
 			System.out.println("Reading...");
 			
-			boolean processedOneObj;
 			while(scan.hasNext()) {
 
-				System.out.println("her4e");
-				processedOneObj = false;
-				while(!processedOneObj) {
-					System.out.println("her4e");
 					String shapeType = scan.next();
 					double height = Double.parseDouble(scan.next());
 					double length_radius = Double.parseDouble(scan.next());
-					
-					String className = "shapes." + shapeType;
+					String className = "shapesDomain." + shapeType;
 					Class cls = Class.forName(className);
 					Class paramTypes[] = new Class[3];
 						paramTypes[0] = Double.TYPE;
@@ -162,8 +156,7 @@ public static void main(String[] args) throws FileNotFoundException{
 					
 					Object obj = classConstructor.newInstance(argList);
 					shapelist.add((Shape)obj);
-					processedOneObj = true;
-				}
+				
 			}
 			
 			scan.close();

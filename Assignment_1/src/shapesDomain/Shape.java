@@ -3,15 +3,13 @@
  */
 package shapesDomain;
 
-import java.util.*;
-
 
 /**
  * @author ivanl
  *
  */
 
-public abstract class Shape implements Comparator<Shape>, Comparable<Shape>  {
+public abstract class Shape implements Comparable<Shape>  {
 
 	public final double pi = 3.14f;
 
@@ -68,7 +66,5 @@ public abstract class Shape implements Comparator<Shape>, Comparable<Shape>  {
 	}
 	
 	public abstract Object getShapeName();
-
-	protected abstract Object height();
 	
 }
