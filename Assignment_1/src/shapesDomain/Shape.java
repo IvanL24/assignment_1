@@ -16,46 +16,59 @@ public abstract class Shape implements Comparator<Shape>, Comparable<Shape>  {
 	public final double pi = 3.14f;
 
 	// Internal variables for abstract class
-	private double area = 0.0;
-	private double volume = 0.0;
-	private double height = 0.0;
+	private double compareType;
+	private double height;
 	
-	// Protected methods, exclusively for implementation/access to subclasses.
-	protected abstract void Calculate();
-	protected void setValues(double area, double volume, double height) {
-		this.area = area;
-		this.volume = volume;
-		this.height = height;
-	}
+	public abstract double getarea();
+	
+	public abstract double getvolume();
+	
 
 	// Public methods defined here to remove code redundancy on subclasses.
-	public Shape() {
-		
+	public Shape(double height, char compareType) {
+		super();
+		this.height = height;
+		this.compareType = compareType;
 	}
 
-	public double area() {
-		return this.area;
+	//getters
+	public double getheight() {
+		return height;
+	}
+
+	public double getCompareType() {
+		return compareType;
 	}
 	
-	public double volume() {
-		return this.volume;
+	// setters
+	public double setheight(double height) {
+		return this.height;
 	}
-	
-	public double height() {
+	public double setCompareType(char compareType) {
 		return this.height;
 	}
 	
-	public int compare(Shape o1, Shape o2) {	
-		boolean isMatch = (
-			o1.volume() == o2.volume() &&
-			o1.area() == o2.area()
-		);
-		
-		return isMatch ? 0 : -1;
-	}
-
+	@Override
 	public int compareTo(Shape o) {
-		return (int)(this.height - o.height());
+		if(o.getCompareType() == 'h') {
+			if(this.getheight() > o.getheight()) return 1;
+			if(this.getheight() < o.getheight()) return -1;
+			return 0;
+		}else if(o.getCompareType() == 'v') {
+			if(this.getvolume() > o.getvolume()) return 1;
+			if(this.getvolume() < o.getvolume()) return -1;
+			return 0;
+		}else if(o.getCompareType() == 'a') {
+			if(this.getarea() > o.getarea()) return 1;
+			if(this.getarea() < o.getarea()) return -1;
+			return 0;
+		}else {
+			return 0;
+		}
 	}
+	
+	public abstract Object getShapeName();
+
+	protected abstract Object height();
 	
 }

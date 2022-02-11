@@ -1,22 +1,33 @@
 package shapesDomain;
 
 public class TriangularPrism extends Prism {
-
-	private double height = 0.0;
-	private double edgeLength = 0.0;
 	
-	public TriangularPrism(double height, double edgeLength) {
+	public TriangularPrism(double height, double edgeLength, char compareType) {
+		super(height, edgeLength, compareType);
 		
-		this.height = height;
-		this.edgeLength = edgeLength;
-		
-		this.Calculate();
 	}
 	
-	protected void Calculate() {
-		double A = (5 * (Math.pow(this.edgeLength, 2) * (Math.sqrt(3))))/4;
-		double V = A * this.height;
-		this.setValues(A, V, this.height);
+
+	@Override
+	public double getarea() {
+		return (Math.pow(getheight(), 2) * Math.pow(3, 0.5)) / 4;
+	}
+
+	@Override
+	public double getvolume() {
+		return getarea() * getLength();
+	}
+
+	@Override
+	public Object getShapeName() {
+		// TODO Auto-generated method stub
+		return "Traingular Prism";
+	}
+
+	@Override
+	public String toString() {
+		return "TriangularPrism [getarea()=" + getarea() + ", getvolume()=" + getvolume() + ", getheight()="
+				+ getheight() + "]";
 	}
 	
 }

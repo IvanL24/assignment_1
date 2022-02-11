@@ -68,15 +68,9 @@ public class Sort {
 			sortingType = "Merge sort";
 			break;
 		}
-		
-		System.out.println("Compare type:"+ compareType);
-		System.out.println("Sorting type:"+ sortingType);
+
 	}
 	
-//	private void sortArray(ArrayList<Shape> shapelist, char compareType, char sortType) {
-//		
-//		
-//	}
 	
 	private void sortArray(ArrayList<Shape> shapelist, char compareType, char sortType) {
 		switch(sortType) {
@@ -87,8 +81,19 @@ public class Sort {
 				break;
 				
 		}
+		printSortedArray(shapelist);
 	}
 	
+	private void printSortedArray(ArrayList<Shape> shapelist) {
+		System.out.printf("%7d   %-20s%,12.2f%,25.2f%,25.2f%n",1,shapelist.get(0).getShapeName(),shapelist.get(0).getheight(),shapelist.get(0).getarea(),shapelist.get(0).getvolume());
+		for(int i=1; i<shapelist.size(); i++) {
+			if(i % 1000 == 0) {
+				System.out.printf("%7d   %-20s%,12.2f%,25.2f%,25.2f%n",
+									i,shapelist.get(i).getShapeName(),shapelist.get(i).getheight(),shapelist.get(i).getarea(),shapelist.get(i).getvolume());
+			}
+		}
+		System.out.printf("%7d   %-20s%,12.2f%,25.2f%,25.2f%n",shapelist.size(),shapelist.get(shapelist.size()-1).getShapeName(),shapelist.get(shapelist.size()-1).getheight(),shapelist.get(shapelist.size()-1).getarea(),shapelist.get(shapelist.size()-1).getvolume());
+	}
 	
 	private void bubblesort(ArrayList<Shape> shapelist, char compareType) {
 		switch(compareType) {
@@ -128,35 +133,36 @@ public class Sort {
 		}
 	}
 	
+	
 	// getter methods
-		private char getCompareType() {
+		public char getCompareType() {
 			return compareType;
 			
 		}
 
-		private char getSortType() {
+		public char getSortType() {
 			return sortType;
 			
 		}
 
-		private ArrayList<Shape> getShapes() {
+		public ArrayList<Shape> getShapes() {
 			return shapes;
 			
 		}
 		
 		
 		//setter methods
-		private void setCompareType(char compareType) {
+		public void setCompareType(char compareType) {
 			this.compareType = compareType;
 			
 		}
 
-		private void setSortType(char sortType) {
+		public void setSortType(char sortType) {
 			this.sortType = sortType;
 			
 		}
 
-		private void setShapes(ArrayList<Shape> shapes) {
+		 void setShapes(ArrayList<Shape> shapes) {
 			this.shapes = shapes;
 			
 		}

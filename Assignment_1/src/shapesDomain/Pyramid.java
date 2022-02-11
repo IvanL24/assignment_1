@@ -8,25 +8,46 @@ package shapesDomain;
  *
  */
 public class Pyramid extends Shape{
-
-	private double height = 0.0;
-	private double edgeLength = 0.0;
+	
+	private double edgeLength;
+	
+	public Pyramid(double height, double edgeLength, char compareType) {
 		
-	public Pyramid(double height, double edgeLength) {
-		
-		this.height = height;
+		super(height, compareType);
 		this.edgeLength = edgeLength;
+		
+	}
 
-		this.Calculate();
-		
+	@Override
+	public double getEdgeLength() {
+		return edgeLength;
 	}
 	
-	protected void Calculate() {
-		
-		double A =  Math.pow(this.edgeLength, 2);
-		double V = 1/3 * A * this.height;
-	
-		this.setValues(A, V, this.height);
+	@Override
+	public double setEdgeLength(double edgeLength) {
+		this.edgeLength = edgeLength;
 	}
+
+	@Override
+	public double getarea() {
+		return Math.pow(getheight(), 2);
+	}
+
+	@Override
+	public double getvolume() {
+		return (Math.pow(getheight(), 2) * getEdgeLength()) / 3;
+	}
+
+	@Override
+	public Object getShapeName() {
+		return "Pyramid";
+	}
+
+	@Override
+	public String toString() {
+		return "Pyramid [length=" + edgeLength + ", getarea()=" + getarea() + ", getvolume()=" + getvolume()
+				+ ", getHeight()=" + getheight() + "]";
+	}
+
 	
 }
