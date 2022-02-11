@@ -85,6 +85,12 @@ public class Sort {
 				endTime = System.currentTimeMillis();
 				break;
 				
+			case 's':
+				startTime = System.currentTimeMillis();
+				selection(shapelist, compareType);
+				endTime = System.currentTimeMillis();
+				break;
+				
 		}
 		printSortedArray(shapelist);
 	}
@@ -139,6 +145,60 @@ public class Sort {
 		}
 	}
 	
+	// method for selection sort
+	private void selection(ArrayList<Shape> shapelist, char compareType) {
+		switch(compareType) {
+		case 'h':
+			
+			for (int i = 0; i < shapelist.size(); i++){
+
+		        int smallestNumber = i;
+		        for(int j = i + 1; j < shapelist.size(); j++){
+		            if(height.compare(shapelist.get(j), shapelist.get(smallestNumber)) == 1){
+		                smallestNumber = j;
+		            }    
+		        }
+
+		        Shape temp = shapelist.get(smallestNumber);
+		        shapelist.set(smallestNumber, shapelist.get(i));
+		        shapelist.set(i, temp);
+		        }
+		        
+			
+			break;
+		case 'v':
+			for (int i = 0; i < shapelist.size(); i++){
+
+		        int smallestNumber = i;
+		        for(int j = i + 1; j < shapelist.size(); j++){
+		            if(volume.compare(shapelist.get(j), shapelist.get(smallestNumber)) == 1){
+		                smallestNumber = j;
+		            }    
+		        }
+
+		        Shape temp = shapelist.get(smallestNumber);
+		        shapelist.set(smallestNumber, shapelist.get(i));
+		        shapelist.set(i, temp);
+		        }
+			break;
+		case 'a':
+			for (int i = 0; i < shapelist.size(); i++){
+
+		        int smallestNumber = i;
+		        for(int j = i + 1; j < shapelist.size(); j++){
+		            if(area.compare(shapelist.get(j), shapelist.get(smallestNumber)) == 1){
+		                smallestNumber = j;
+		            }    
+		        }
+
+		        Shape temp = shapelist.get(smallestNumber);
+		        shapelist.set(smallestNumber, shapelist.get(i));
+		        shapelist.set(i, temp);
+		        }
+
+			break;
+		}
+	}
 	
 		// method to return compare type
 		public char getCompareType() {

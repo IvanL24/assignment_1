@@ -2,10 +2,6 @@ package shapesDomain;
 
 public class PentagonalPrism extends Prism{
 
-	private double height = 0.0;
-	private double edgeLength = 0.0;
-	
-
 	
 	public PentagonalPrism(double height, double edgeLength) {
 		
