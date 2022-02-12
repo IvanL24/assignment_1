@@ -3,20 +3,33 @@ package shapesDomain;
 public class PentagonalPrism extends Prism{
 
 	
-	public PentagonalPrism(double height, double edgeLength) {
-		
-		this.height = height;
-		this.edgeLength = edgeLength;
-		
-		this.Calculate();
+	public PentagonalPrism(double height, double edgeLength, char compareType) {
+		super(height, edgeLength, compareType);
+	}
+
+
+	@Override
+	public double getarea() {
+		// TODO Auto-generated method stub
+		return (5 * Math.pow(this.getLength(), 2) * Math.tan(54)) / 4;
+	}
+
+	@Override
+	public double getvolume() {
+		// TODO Auto-generated method stub
+		return getarea() * getheight();
+	}
+
+	@Override
+	public Object getShapeName() {
+		// TODO Auto-generated method stub
+		return "Pentagonal Prism";
 	}
 	
-	protected void Calculate() {
-		
-		double A =  (5 * Math.pow(this.edgeLength, 2) * Math.tan(54)) / 4;
-		double V = A * this.height;
-		
-		this.setValues(A, V, this.height);
+	@Override
+	public String toString() {
+		return "PentagonalPrism [getarea()=" + getarea() + ", getvolume()=" + getvolume() + ", getheight()="
+				+ getheight() + "]";
 	}
 	
 

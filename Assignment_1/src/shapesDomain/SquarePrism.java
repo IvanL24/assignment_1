@@ -12,23 +12,33 @@ package shapesDomain;
  
 public class SquarePrism extends Prism {
 
-	private double height = 0.0;
-	private double edgeLength = 0.0;
 	
-	public SquarePrism(double height, double edgeLength) {
+	public SquarePrism(double height, double edgeLength, char compareType) {
+		super(height, edgeLength, compareType);
 		
-		this.height = height;
-		this.edgeLength = edgeLength;
-		
-		this.Calculate();
 	}
-	
-	protected void Calculate() {
-		double A = Math.pow(this.edgeLength, 2);
-		double V = A * this.height;
-		
-		this.setValues(A, V, this.height);
+
+	@Override
+	public double getarea() {
+
+		return Math.pow(getLength(), 2);
 	}
+
+	@Override
+	public double getvolume() {
 	
+		return getarea() * getheight();
+	}
+
+	@Override
+	public Object getShapeName() {
+		// TODO Auto-generated method stub
+		return "Square Prism";
+	}
+	@Override
+	public String toString() {
+		return "SquarePrism [getarea()=" + getarea() + ", getvolume()=" + getvolume() + ", getheight()="
+				+ getheight() + "]";
+	}
 	
 }

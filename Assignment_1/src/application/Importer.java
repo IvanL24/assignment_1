@@ -27,7 +27,13 @@ public class Importer {
 			String shapeType = scanner.next();
 			double param1 = scanner.nextDouble();
 			double param2 = scanner.nextDouble();
+			
+			
+			System.out.println(shapeType + " " + param1 + " " + param2);
 		}
+		
+		
+		
 		
 		System.out.println("Finished importing shapes");
 		
