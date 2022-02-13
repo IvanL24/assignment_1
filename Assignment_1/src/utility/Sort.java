@@ -105,6 +105,7 @@ public class Sort {
 			}
 		}
 		System.out.printf("%7d   %-20s%,12.2f%,25.2f%,25.2f%n",shapelist.size(),shapelist.get(shapelist.size()-1).getShapeName(),shapelist.get(shapelist.size()-1).getheight(),shapelist.get(shapelist.size()-1).getarea(),shapelist.get(shapelist.size()-1).getvolume());
+		System.out.println("Time: " + (endTime - startTime));
 	}
 	
 	private void bubblesort(ArrayList<Shape> shapelist, char compareType) {
