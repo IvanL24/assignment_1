@@ -36,11 +36,11 @@ public class Sort {
 	
 	
 	//display user inputs
-	private void userInput (char c, char s) {
+	private void userInput (char compare, char sort) {
 		String compareType = "";
 		String sortingType = "";
 		
-		switch(c) {
+		switch(compare) {
 		case 'h':
 			compareType = "By Height";
 			break;
@@ -52,7 +52,7 @@ public class Sort {
 			break;
 		}
 		
-		switch(s) {
+		switch(sort) {
 		case 'b':
 			sortingType = "Bubble sort";
 			break;
@@ -88,6 +88,24 @@ public class Sort {
 			case 's':
 				startTime = System.currentTimeMillis();
 				selection(shapelist, compareType);
+				endTime = System.currentTimeMillis();
+				break;
+				
+			case 'q':
+				startTime = System.currentTimeMillis();
+				quickSort(shapelist, 0, shapelist.size()-1, compareType);
+				endTime = System.currentTimeMillis();
+				break;
+				
+			case 'i':
+				startTime = System.currentTimeMillis();
+				insertion(shapelist, compareType);
+				endTime = System.currentTimeMillis();
+				break;
+				
+			case 'm':
+				startTime = System.currentTimeMillis();
+				sort(shapelist, compareType);
 				endTime = System.currentTimeMillis();
 				break;
 				
@@ -199,7 +217,210 @@ public class Sort {
 
 			break;
 		}
+		
 	}
+	
+	// method for quick sort
+	private void quickSort (ArrayList<Shape> shapelist,int start, int end, char compareType) {
+			
+        int partitionIndex = partition(shapelist, start, end, compareType);
+        
+        if( start < partitionIndex -1) {
+            quickSort(shapelist, start, partitionIndex - 1, compareType);
+        }
+        if(partitionIndex < end) {
+            quickSort(shapelist, partitionIndex, end, compareType);
+        }
+        endTime = System.currentTimeMillis();
+
+	}
+	
+    public int partition(ArrayList<Shape> shapelist,int start, int end, char compareType){
+
+    	Shape pivot = shapelist.get((end + start)/ 2);
+ 
+        for(int i=start; i<shapelist.size(); i++){
+        	
+        	switch(compareType) {
+        	
+        	
+        	case 'h':
+        			while(start <= end){
+                     while (height.compare(shapelist.get(start), pivot) < 0) {
+                     start++;
+                     }
+                     while (height.compare(shapelist.get(end), pivot) < 0) {
+                         end--;
+                     }
+                     if(start <= end) {
+                         Shape temp = shapelist.get(start);
+                         shapelist.set(start, shapelist.get(end));
+                         shapelist.set(end, temp);
+                         start++;
+                         end--;
+                     }
+                 }
+    			break;
+    			
+        	case 'v':
+    			while(start <= end){
+                 while (volume.compare(shapelist.get(start), pivot) < 0) {
+                 start++;
+                 }
+                 while (volume.compare(shapelist.get(end), pivot) < 0) {
+                     end--;
+                 }
+                 if(start <= end) {
+                     Shape temp = shapelist.get(start);
+                     shapelist.set(start, shapelist.get(end));
+                     shapelist.set(end, temp);
+                     start++;
+                     end--;
+                 }
+             }
+			break;
+			
+        	case 'a':
+    			while(start <= end){
+                 while (area.compare(shapelist.get(start), pivot) < 0) {
+                 start++;
+                 }
+                 while (area.compare(shapelist.get(end), pivot) < 0) {
+                     end--;
+                 }
+                 if(start <= end) {
+                     Shape temp = shapelist.get(start);
+                     shapelist.set(start, shapelist.get(end));
+                     shapelist.set(end, temp);
+                     start++;
+                     end--;
+                 }
+             }
+			break;
+
+        	}
+    	}
+        return start;
+    }
+    
+    //Insertion method
+	private void insertion (ArrayList<Shape> shapelist, char compareType) {
+		
+		switch(compareType) {
+    	
+    	
+    	case 'h':
+            for (int i = 0; i < shapelist.size(); i++) {
+                Shape index  = shapelist.get(i);
+                int j = i -1;
+                while (j > 0 && height.compare(shapelist.get(i), index)  > 0) {
+                    shapelist.set(i + 1, shapelist.get(i));
+                    j--;
+                }
+            }
+			break;
+    	case 'v':
+            for (int i = 0; i < shapelist.size(); i++) {
+                Shape index  = shapelist.get(i);
+                int j = i -1;
+                while (j > 0 && volume.compare(shapelist.get(i), index)  > 0) {
+                    shapelist.set(i + 1, shapelist.get(i));
+                    j--;
+                }
+            }
+			break;
+    	case 'a':
+            for (int i = 0; i < shapelist.size(); i++) {
+                Shape index  = shapelist.get(i);
+                int j = i -1;
+                while (j > 0 && area.compare(shapelist.get(i), index)  > 0) {
+                    shapelist.set(i + 1, shapelist.get(i));
+                    j--;
+                }
+            }
+			break;
+		}
+
+	}
+    
+	/**
+	 * method for merge sort
+	 * @return
+	 */
+    private ArrayList<Shape> sort(ArrayList<Shape> shapelist, char compareType){
+    	ArrayList<Shape> left = new ArrayList<Shape>();
+    	ArrayList<Shape> right = new ArrayList<Shape>();
+        int middle;
+        
+        
+    	if (shapelist.size() == 1) {
+    		return shapelist;
+    	} else {
+    		
+            middle =shapelist.size() / 2;
+            
+            for(int i = 0; i < middle; i++) {
+            	left.add(shapelist.get(i));
+            }
+            
+            for(int i = middle; i < shapelist.size(); i++) {
+            	right.add(shapelist.get(i));
+            }
+            
+            left = sort(left, compareType);
+            right = sort(right, compareType);
+
+            merge(left, right, shapelist, compareType);
+          
+        }
+    	return shapelist;
+    }
+    
+	 private void merge(ArrayList<Shape> left, ArrayList<Shape> right, ArrayList<Shape> shapelist, char compareType) {
+
+	        int indexleft = 0;
+	        int indexshapelist = 0;
+	        int indexright = 0;
+
+	        switch(compareType) {
+	        case 'h':
+	        	while (indexleft < left.size() && indexright < right.size()) {
+	        		if (height.compare(left.get(indexleft), right.get(indexright)) < 0) {
+	        			shapelist.set(indexshapelist, left.get(indexleft));
+	        			indexleft++;
+	        		} else {
+	        			shapelist.set(indexshapelist, right.get(indexright));
+	        			indexright++;
+	        		}
+	        		indexshapelist++;
+	        	}
+	        	break;
+	        case 'v':
+	        	while (indexleft < left.size() && indexright < right.size()) {
+	        		if (volume.compare(left.get(indexleft), right.get(indexright)) < 0) {
+	        			shapelist.set(indexshapelist, left.get(indexleft));
+	        			indexleft++;
+	        		} else {
+	        			shapelist.set(indexshapelist, right.get(indexright));
+	        			indexright++;
+	        		}
+	        		indexshapelist++;
+	        	}
+	        	break;
+	        case 'a':
+	        	while (indexleft < left.size() && indexright < right.size()) {
+	        		if (area.compare(left.get(indexleft), right.get(indexright)) < 0) {
+	        			shapelist.set(indexshapelist, left.get(indexleft));
+	        			indexleft++;
+	        		} else {
+	        			shapelist.set(indexshapelist, right.get(indexright));
+	        			indexright++;
+	        		}
+	        		indexshapelist++;
+	        	}
+	        	break;
+			}
+	    }
 	
 		// method to return compare type
 		public char getCompareType() {
