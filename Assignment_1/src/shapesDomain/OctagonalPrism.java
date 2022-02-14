@@ -14,7 +14,6 @@ public class OctagonalPrism extends Prism {
 		
 
 	}
-	
 
 
 	@Override

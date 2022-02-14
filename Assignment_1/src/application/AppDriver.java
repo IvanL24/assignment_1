@@ -76,7 +76,7 @@ public static void main(String[] args) throws FileNotFoundException{
 							System.out.println("arg2:" + arg2);
 							System.out.println("arg3:" + arg3);
 							ArrayList<Shape> shapelist = TestImporter(arg3.substring(2), arg3.charAt(2));
-							System.out.println(shapelist);
+							//System.out.println(shapelist);
 							arraySort(shapelist, Character.toLowerCase(arg1.charAt(2)), Character.toLowerCase(arg2.charAt(2)));
 						}
 					}else {
@@ -182,7 +182,7 @@ public static void main(String[] args) throws FileNotFoundException{
 	 */
 	
 	private static void arraySort(ArrayList<Shape> shapes, char compareType, char sortType) {
-		System.out.println(shapes);
+		//System.out.println(shapes);
 		new Sort(shapes, compareType, sortType);
 	}
 

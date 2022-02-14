@@ -3,8 +3,10 @@
  */
 package utility;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
+import shapesDomain.Prism;
 import shapesDomain.Shape;
 
 
@@ -68,6 +70,9 @@ public class Sort {
 		case 'm':
 			sortingType = "Merge sort";
 			break;
+		case 'c':
+			sortingType = "Counting sort (custom)";
+			break;
 		}
 		
 		System.out.println("Compare Type: " + compareType);
@@ -108,14 +113,21 @@ public class Sort {
 				sort(shapelist, compareType);
 				endTime = System.currentTimeMillis();
 				break;
-				
+			case 'c':
+				startTime = System.currentTimeMillis();
+				countingSort(shapelist, compareType);
+				endTime = System.currentTimeMillis();
+				break;
 		}
 		printSortedArray(shapelist);
 	}
 	
 	//method to display the sorted arraylist
 	private void printSortedArray(ArrayList<Shape> shapelist) {
-		System.out.printf("%7d   %-20s%,12.2f%,25.2f%,25.2f%n",1,shapelist.get(0).getShapeName(),shapelist.get(0).getheight(),shapelist.get(0).getarea(),shapelist.get(0).getvolume());
+		
+		System.out.printf("%7d   %-20s%,12.2f%,25.2f%,25.2f%n",
+				0,shapelist.get(0).getShapeName(),shapelist.get(0).getheight(),shapelist.get(0).getarea(),shapelist.get(0).getvolume());
+		
 		for(int i=1; i<shapelist.size(); i++) {
 			if(i % 1000 == 0) {
 				System.out.printf("%7d   %-20s%,12.2f%,25.2f%,25.2f%n",
@@ -123,7 +135,7 @@ public class Sort {
 			}
 		}
 		System.out.printf("%7d   %-20s%,12.2f%,25.2f%,25.2f%n",shapelist.size(),shapelist.get(shapelist.size()-1).getShapeName(),shapelist.get(shapelist.size()-1).getheight(),shapelist.get(shapelist.size()-1).getarea(),shapelist.get(shapelist.size()-1).getvolume());
-		System.out.println("Time: " + (endTime - startTime));
+		System.out.println("Time: " + (endTime - startTime) + "ms");
 	}
 	
 	private void bubblesort(ArrayList<Shape> shapelist, char compareType) {
@@ -173,7 +185,7 @@ public class Sort {
 
 		        int smallestNumber = i;
 		        for(int j = i + 1; j < shapelist.size(); j++){
-		            if(height.compare(shapelist.get(j), shapelist.get(smallestNumber)) == 1){
+		            if(height.compare(shapelist.get(j), shapelist.get(smallestNumber)) == -1){
 		                smallestNumber = j;
 		            }    
 		        }
@@ -181,7 +193,7 @@ public class Sort {
 		        Shape temp = shapelist.get(smallestNumber);
 		        shapelist.set(smallestNumber, shapelist.get(i));
 		        shapelist.set(i, temp);
-		        }
+	        }
 		        
 			
 			break;
@@ -190,7 +202,7 @@ public class Sort {
 
 		        int smallestNumber = i;
 		        for(int j = i + 1; j < shapelist.size(); j++){
-		            if(volume.compare(shapelist.get(j), shapelist.get(smallestNumber)) == 1){
+		            if(volume.compare(shapelist.get(j), shapelist.get(smallestNumber)) == -1){
 		                smallestNumber = j;
 		            }    
 		        }
@@ -205,7 +217,7 @@ public class Sort {
 
 		        int smallestNumber = i;
 		        for(int j = i + 1; j < shapelist.size(); j++){
-		            if(area.compare(shapelist.get(j), shapelist.get(smallestNumber)) == 1){
+		            if(area.compare(shapelist.get(j), shapelist.get(smallestNumber)) == -1){
 		                smallestNumber = j;
 		            }    
 		        }
@@ -217,6 +229,8 @@ public class Sort {
 
 			break;
 		}
+		
+		Collections.reverse(shapelist);
 		
 	}
 	
@@ -246,8 +260,8 @@ public class Sort {
         	
         	case 'h':
         			while(start <= end){
-                     while (height.compare(shapelist.get(start), pivot) < 0) {
-                     start++;
+                     while (height.compare(shapelist.get(start), pivot) > 0) {
+                    	 start++;
                      }
                      while (height.compare(shapelist.get(end), pivot) < 0) {
                          end--;
@@ -264,8 +278,8 @@ public class Sort {
     			
         	case 'v':
     			while(start <= end){
-                 while (volume.compare(shapelist.get(start), pivot) < 0) {
-                 start++;
+                 while (volume.compare(shapelist.get(start), pivot) > 0) {
+                	 start++;
                  }
                  while (volume.compare(shapelist.get(end), pivot) < 0) {
                      end--;
@@ -282,7 +296,7 @@ public class Sort {
 			
         	case 'a':
     			while(start <= end){
-                 while (area.compare(shapelist.get(start), pivot) < 0) {
+                 while (area.compare(shapelist.get(start), pivot) > 0) {
                  start++;
                  }
                  while (area.compare(shapelist.get(end), pivot) < 0) {
@@ -323,7 +337,7 @@ public class Sort {
             for (int i = 0; i < shapelist.size(); i++) {
                 Shape index  = shapelist.get(i);
                 int j = i -1;
-                while (j > 0 && volume.compare(shapelist.get(i), index)  > 0) {
+                while (j > 0 && volume.compare(shapelist.get(i), index) > 0) {
                     shapelist.set(i + 1, shapelist.get(i));
                     j--;
                 }
@@ -376,51 +390,187 @@ public class Sort {
     	return shapelist;
     }
     
-	 private void merge(ArrayList<Shape> left, ArrayList<Shape> right, ArrayList<Shape> shapelist, char compareType) {
+    
 
-	        int indexleft = 0;
-	        int indexshapelist = 0;
-	        int indexright = 0;
+    public void countingSort(ArrayList<Shape> arr, char compareType)
+    {
 
-	        switch(compareType) {
-	        case 'h':
-	        	while (indexleft < left.size() && indexright < right.size()) {
-	        		if (height.compare(left.get(indexleft), right.get(indexright)) < 0) {
-	        			shapelist.set(indexshapelist, left.get(indexleft));
-	        			indexleft++;
-	        		} else {
-	        			shapelist.set(indexshapelist, right.get(indexright));
-	        			indexright++;
-	        		}
-	        		indexshapelist++;
-	        	}
-	        	break;
-	        case 'v':
-	        	while (indexleft < left.size() && indexright < right.size()) {
-	        		if (volume.compare(left.get(indexleft), right.get(indexright)) < 0) {
-	        			shapelist.set(indexshapelist, left.get(indexleft));
-	        			indexleft++;
-	        		} else {
-	        			shapelist.set(indexshapelist, right.get(indexright));
-	        			indexright++;
-	        		}
-	        		indexshapelist++;
-	        	}
-	        	break;
-	        case 'a':
-	        	while (indexleft < left.size() && indexright < right.size()) {
-	        		if (area.compare(left.get(indexleft), right.get(indexright)) < 0) {
-	        			shapelist.set(indexshapelist, left.get(indexleft));
-	        			indexleft++;
-	        		} else {
-	        			shapelist.set(indexshapelist, right.get(indexright));
-	        			indexright++;
-	        		}
-	        		indexshapelist++;
-	        	}
-	        	break;
-			}
-	    }
+    	
+    	/**
+    	* Counting Sort
+    	*
+    	* first part of the code:
+    	* setup an output
+    	* first for loop:
+    	* find the largest number in the array (int max)
+    	*
+    	* second for loop:
+    	* initialize array values to zero
+    	* create a new array to store counts
+    	* third for loop:
+    	* count array++
+    	*
+    	* fourth for loop:
+    	* store counts from each array into a new array
+
+    	* fifth for loop:
+    	* look for the index of the original array and store it to an array (output array)
+    	*
+    	* sixth for loop:
+    	* copy the sorted elements from each array into the original array
+    	*
+    	* Complexity Test
+    	* Best O(n+k)
+    	* Worst O(n+k)
+    	* Average O(n+k)
+    	*
+    	* Space O(max)
+    	*/
+    	
+    	class indexTracker {
+    		public int index = 0;
+    		public int value = 0;
+    	}
+    	
+    
+    	//int[] input = new int[arr.size() + 1];
+    	indexTracker[] input = new indexTracker[arr.size() + 1];
+    	
+    	for (int x = 0; x < arr.size(); x++) {
+    		input[x] = new indexTracker();
+    	}
+    	
+    	System.out.println("array size: " + arr.size());
+    
+    	
+    	switch(compareType) {
+        case 'h': // height
+        	for (int x = 0; x < arr.size(); x++) {
+        		input[x].index = x;
+        		input[x].value = (int)arr.get(x).getheight();
+        	}
+        	break;
+        case 'v': // volume
+        	for (int x = 0; x < arr.size(); x++) {
+        		input[x].index = x;
+        		input[x].value = (int)arr.get(x).getvolume();
+        	}
+        	break;
+        case 'a': // area
+        	for (int x = 0; x < arr.size(); x++) {
+        		input[x].index = x;
+        		input[x].value = (int)arr.get(x).getarea();
+        	}
+        	break;
+		}
+    	
+    	    	
+        int[] output = new int[arr.size() + 1];
+        
+        int max = input[0].value;
+        
+        System.out.println(input[0].value);
+        for (int i = 1; i < arr.size(); i++) {
+          if (input[i].value > max)
+            max = input[i].value;
+        }
+        
+        int[] count = new int[max + 1];
+
+        for (int i = 0; i < max; ++i) {
+          count[i] = 0;
+        }
+
+        for (int i = 0; i < arr.size(); i++) {
+          count[input[i].value]++;
+        }
+
+        for (int i = 1; i <= max; i++) {
+          count[i] += count[i - 1];
+        }
+
+        for (int i = arr.size() - 1; i >= 0; i--) {
+          output[count[input[i].value] - 1] = input[i].value;
+          count[input[i].value]--;
+        }
+    
+        for (int i = 0; i < arr.size(); i++) {
+          input[i].value = output[i];
+          System.out.println(input[i].value);
+        }
+        
+      }
+    
+    
+    
+    private void merge(ArrayList<Shape> left, ArrayList<Shape> right, ArrayList<Shape> shapelist, char compareType) {
+
+        int indexleft = 0;
+        int indexshapelist = 0;
+        int indexright = 0;
+        
+        switch(compareType) {
+        case 'h':
+        	while (indexshapelist < left.size() + right.size()) {
+        		if(indexleft == left.size() ){
+        			shapelist.set(indexshapelist, right.get(indexright));
+        			indexright++;
+        		} else if(indexright == right.size()){
+        			shapelist.set(indexshapelist, left.get(indexleft));
+        			indexleft++;
+        		}	
+        		  else if(height.compare(left.get(indexleft), right.get(indexright)) > 0) {
+        			shapelist.set(indexshapelist, left.get(indexleft));
+        			indexleft++;	
+        		} else{
+        			shapelist.set(indexshapelist, right.get(indexright));
+        			indexright++;
+        		} 		
+        		
+        		indexshapelist++;
+        	}
+        	break;
+        case 'v':
+        	while (indexshapelist < left.size() + right.size()) {
+        		if(indexleft == left.size() ){
+        			shapelist.set(indexshapelist, right.get(indexright));
+        			indexright++;
+        		} else if(indexright == right.size()){
+        			shapelist.set(indexshapelist, left.get(indexleft));
+        			indexleft++;
+        		}	
+        		  else if(volume.compare(left.get(indexleft), right.get(indexright)) > 0) {
+        			shapelist.set(indexshapelist, left.get(indexleft));
+        			indexleft++;	
+        		} else{
+        			shapelist.set(indexshapelist, right.get(indexright));
+        			indexright++;
+        		} 		
+        		
+        		indexshapelist++;
+        	}
+        	break;
+        case 'a':
+        	while (indexshapelist < left.size() + right.size()) {
+        		if(indexleft == left.size() ){
+        			shapelist.set(indexshapelist, right.get(indexright));
+        			indexright++;
+        		} else if(indexright == right.size()){
+        			shapelist.set(indexshapelist, left.get(indexleft));
+        			indexleft++;
+        		}	
+        		  else if(area.compare(left.get(indexleft), right.get(indexright)) > 0) {
+        			shapelist.set(indexshapelist, left.get(indexleft));
+        			indexleft++;	
+        		} else{
+        			shapelist.set(indexshapelist, right.get(indexright));
+        			indexright++;
+        		} 		
+        		
+        		indexshapelist++;
+        	}
+        	break;
+		}
 	
 		// method to return compare type
 		public char getCompareType() {
